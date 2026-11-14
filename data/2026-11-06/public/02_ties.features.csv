@@ -1,0 +1,4 @@
+sample_id,mean_abs_accel,peak_count,gyro_energy
+t1,1,2,0
+t2,4,0,0
+t3,2,1,1

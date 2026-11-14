@@ -1,0 +1,37 @@
+[
+  {
+    "path": "DAILY_CHALLENGES/ISSUED/_meta/DAILY_0700_EDGE_AI_BRIEF.md",
+    "sha256_before": "b4e7f84cb7fe616f2344c8cd07b2989181d0a7872a0a4d6a08b7750c8badf567",
+    "sha256_after": "e4a17605b6bd1db4549a2fc032eebf07dbe050362d5e3742b6280565cd24f5fb"
+  },
+  {
+    "path": "DAILY_CHALLENGES/ISSUED/_meta/WEEKLY_TOPIC_BLOCKS.md",
+    "sha256_before": null,
+    "sha256_after": "4a9a95eac21c98b13fac8d86076e39eaf84fdc6ada76fec3aee124524c4507c6"
+  },
+  {
+    "path": "DAILY_CHALLENGES/ISSUED/_meta/DAILY_CHALLENGE_TEMPLATE.md",
+    "sha256_before": "85dca1e11bf0b86c4a9479c77dd311bf17cd49c6dab5fae07b165acd9f1349bd",
+    "sha256_after": "42eb7e473d4fd7803a69c5c80bcfa73e86b652f79d704c6e20add3746d1a89e0"
+  },
+  {
+    "path": "DAILY_CHALLENGES/ISSUED/_meta/DAILY_0700_INDEX.md",
+    "sha256_before": "ec04b9ea2a958f211246e82884ee47030122507f0c74c228e67d121b78a02f2b",
+    "sha256_after": "f79ae04c960fa2edf7750d24522c58b6c788dab5cad453cd276d31efa94bc457"
+  },
+  {
+    "path": "DAILY_CHALLENGES/README.md",
+    "sha256_before": "3528d8296012506239f18ae2868b0c0dcf637e0f48a4ebbac8cd471671ebb79a",
+    "sha256_after": "aec5b521ab6cf7134df6e7fe832322a4b2ebca6b7655580c1a273bb9376ccde9"
+  },
+  {
+    "path": "YEAR2_MASTER_ROADMAP_AND_GOVERNANCE.md",
+    "sha256_before": "793d4042661fa18b401a53065646a0bfa1bcd0c6b4e3dd92ed844cf2628bae51",
+    "sha256_after": "a737a58aa1ce192eba558fdda417b0a4ad0563e8ddd653aaaff99040a46791e4"
+  },
+  {
+    "path": "master_weekly_schedule_and_coding_bank.md",
+    "sha256_before": "2d6a9e5f03fef20431b08082e07dd605d4896bcb3765343a3fee6bc244c3a52b",
+    "sha256_after": "17c90070feef43422c04ba435a50a7f7f5dc26335b399ff79dafff72f3ae8695"
+  }
+]

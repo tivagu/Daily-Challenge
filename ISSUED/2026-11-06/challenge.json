@@ -1,0 +1,11 @@
+{
+  "id": "EDGE-2026-11-06",
+  "date": "2026-11-06",
+  "timezone": "Asia/Saigon",
+  "format": "B",
+  "profile": "dataset-inference",
+  "origin": "self-authored",
+  "session_minutes": 90,
+  "language": "Python 3.10+",
+  "data_dir": "../../data/2026-11-06"
+}

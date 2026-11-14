@@ -1,0 +1,22 @@
+{
+  "id": "EDGE-2026-11-13",
+  "date": "2026-11-13",
+  "timezone": "Asia/Saigon",
+  "weekly_block": "2026-11-09: CryCare I2S normalization, energy gate, queue & 16-byte protocol",
+  "module": "C11 I2S normalization, int64 RMS/dBFS gate, bounded chunk queue & 16-byte packet",
+  "depends_on": [
+    "EDGE-2026-11-11"
+  ],
+  "session_minutes": 240,
+  "profile": "c-reproducible-project",
+  "format": "A",
+  "origin": "self-authored",
+  "language": "C11",
+  "data_dir": "../../data/2026-11-13/public",
+  "learner_files": [
+    "c/CMakeLists.txt",
+    "c/src/audio_pipeline.c",
+    "REPORT.md"
+  ],
+  "acceptance_tests": "Five public replay cases and two learner cases; verify CMakeLists.txt build, _Static_assert(sizeof==16), int64 RMS overflow safety, and FIFO bounds."
+}

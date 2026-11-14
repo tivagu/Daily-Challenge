@@ -1,0 +1,27 @@
+{
+  "feature_names": [
+    "gyro_energy",
+    "mean_abs_accel",
+    "peak_count"
+  ],
+  "classes": [
+    "z_still",
+    "a_move"
+  ],
+  "weights": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0
+    ]
+  ],
+  "bias": [
+    -10,
+    -20
+  ]
+}

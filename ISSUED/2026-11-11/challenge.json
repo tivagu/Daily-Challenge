@@ -1,0 +1,20 @@
+{
+  "id": "EDGE-2026-11-11",
+  "date": "2026-11-11",
+  "timezone": "Asia/Saigon",
+  "weekly_block": "2026-11-09: CryCare fixed-capacity audio buffering",
+  "module": "Single-threaded PCM ring buffer",
+  "depends_on": [],
+  "session_minutes": 60,
+  "profile": "cpp-reproducible-project",
+  "format": "A",
+  "origin": "self-authored",
+  "language": "C++17",
+  "data_dir": "../../data/2026-11-11/public",
+  "learner_files": [
+    "cpp/include/audio_ring_buffer.hpp",
+    "cpp/src/audio_ring_buffer.cpp",
+    "REPORT.md"
+  ],
+  "acceptance_tests": "Six public FIFO replay cases and two learner cases; review source for memory and time bounds."
+}
