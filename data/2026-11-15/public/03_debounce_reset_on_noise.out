@@ -1,0 +1,5 @@
+PRE_ALERT duty=0 hits=1 ck=EA
+PRE_ALERT duty=0 hits=2 ck=B3
+IDLE duty=0 hits=0 ck=C6
+PRE_ALERT duty=0 hits=1 ck=EF
+PRE_ALERT duty=0 hits=1 seq=4

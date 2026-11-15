@@ -43,3 +43,5 @@ Thumbs.db
 # Public expected outputs (.out), fixtures, source and configs stay trackable.
 
 ques_ans.txt
+.vscode
+Problem_Suggestion.txt

@@ -1,0 +1,7 @@
+F0 8000
+PRE_ALERT duty=0 hits=1 ck=B6
+ALERT_SOFT duty=50 hits=2 ck=B6
+ALERT_SOFT duty=50 hits=2 ck=62
+ALERT_ESCALATED duty=100 hits=2 ck=71
+COOLDOWN duty=0 hits=0 ck=27
+IDLE duty=0 hits=0 ck=41

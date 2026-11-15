@@ -1,0 +1,6 @@
+PRE_ALERT duty=0 hits=1 ck=B9
+ALERT_SOFT duty=50 hits=2 ck=BA
+COOLDOWN duty=0 hits=0 ck=77
+COOLDOWN duty=0 hits=0 ck=A4
+PRE_ALERT duty=0 hits=1 ck=A5
+ALERT_SOFT duty=50 hits=2 ck=A6

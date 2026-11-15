@@ -1,0 +1,23 @@
+{
+  "id": "EDGE-2026-11-15",
+  "date": "2026-11-15",
+  "timezone": "Asia/Saigon",
+  "weekly_block": "2026-11-09: CryCare F0 pitch estimation, debounce FSM, ACK cooldown & 120s escalation",
+  "module": "C11 ZCR F0 estimator, 16-byte packet replay guard, and 5-state alarm FSM",
+  "depends_on": [
+    "EDGE-2026-11-11",
+    "EDGE-2026-11-13"
+  ],
+  "session_minutes": 240,
+  "profile": "c-reproducible-project",
+  "format": "A",
+  "origin": "self-authored",
+  "language": "C11",
+  "data_dir": "../../data/2026-11-15/public",
+  "learner_files": [
+    "c/CMakeLists.txt",
+    "c/src/alarm_fsm.c",
+    "REPORT.md"
+  ],
+  "acceptance_tests": "Six public replay cases and two learner cases; verify CMakeLists.txt build, ZCR F0 math, XOR checksum & seq_id replay guard, and 5-state FSM transitions."
+}
