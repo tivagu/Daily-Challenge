@@ -22,16 +22,16 @@ typedef enum {
 
 typedef struct {
     uint8_t debounce_k;
-    uint32_t escalate_after_sec;
-    uint32_t cooldown_sec;
+    uint32_t escalate_after_sec; // wait time until the next alert if no respones.
+    uint32_t cooldown_sec; // cooldown time after press the ACK button for mom to care baby
 
-    fsm_state_t state;
-    uint8_t duty_cycle;
-    uint8_t consecutive_hits;
-    uint32_t last_seq_id;
-    bool has_seen_packet;
-    uint32_t alert_start_sec;
-    uint32_t cooldown_until_sec;
+    fsm_state_t state; // current c3 state
+    uint8_t duty_cycle; // buzzer volume
+    uint8_t consecutive_hits; // avaiable cry packet one by one to compare with debounce_k
+    uint32_t last_seq_id; // the latest seq_id
+    bool has_seen_packet;  // to detect first last_seq_id (0 <= 0) -> therefrore use has_seen_packet
+    uint32_t alert_start_sec; // time when first alert start
+    uint32_t cooldown_until_sec; // now_sec + cooldown_sec -> signal to call COOLDOWN state is done, change to IDLE
 } alarm_fsm_t;
 
 uint16_t estimate_f0_hz(

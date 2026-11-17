@@ -56,8 +56,8 @@ uint16_t estimate_f0_hz(
     if (samples == NULL || num_samples < 2 || sample_rate_hz == 0) return 0;
     long f0 = 0;
     size_t zc = 0;
-    for (size_t i = 1; i <= num_samples; i++){
-        if (samples[i-1] < 0 && samples[i] > 0 || samples[i] <0 && samples[i-1] > 0){
+    for (size_t i = 1; i <= num_samples - 1; i++){
+        if (samples[i-1] < 0 && samples[i] >= 0 || samples[i] < 0 && samples[i-1] >= 0){
             zc++; 
         }
     }
@@ -94,47 +94,80 @@ bool alarm_fsm_init(
     
 }
 
+static void process_cry_packet(alarm_fsm_t *fsm, uint32_t now_sec){
+    if (fsm->state == FSM_STATE_COOLDOWN){
+                fsm->duty_cycle = 0; // khi cooldown, ta phải tắt âm lượng, vì trước đó có điều kiện if else kiểm tra now_sec >= cooldown_until_sec
+    }
+    if((fsm->state == FSM_STATE_PRE_ALERT || fsm->state == FSM_STATE_IDLE) && fsm->consecutive_hits < fsm->debounce_k){
+        fsm->consecutive_hits++;
+        fsm->state = FSM_STATE_PRE_ALERT;
+    }
+    if(fsm->consecutive_hits >= fsm->debounce_k){
+        if (fsm->escalate_after_sec ==0){
+            fsm->state = FSM_STATE_ALERT_ESCALATED;
+            fsm->duty_cycle = 100;
+        }
+        else{
+        fsm->state = FSM_STATE_ALERT_SOFT;
+        fsm->duty_cycle = 50;
+        fsm->alert_start_sec = now_sec;
+        }
+    }
+    if(fsm->state == FSM_STATE_ALERT_SOFT && now_sec - fsm->alert_start_sec >= fsm->escalate_after_sec){
+        fsm->state = FSM_STATE_ALERT_ESCALATED;
+        fsm->duty_cycle = 100;
+    }
+
+
+}
 fsm_step_status_t alarm_fsm_process_packet(
     alarm_fsm_t *fsm,
     const crycare_packet_t *pkt,
-    uint32_t now_sec
+    uint32_t now_sec // realtime
+    /*Workflow:
+    * 1. check if packet is invalid by NULL or verify or duplicate
+    * 2. test with pkt->event_type: if ACK_MOM -> then change to cooldown and silient, cooldown_until_sec = sec_not + cooldown_time, and hit = 0 (reset everything)
+    * 3. if COOLDOWN and now_sec > cooldown_until_sec => then reset everything and change state to IDLE
+    * 4. if CRY_ALERT -> analyze with each alarm_fsm_t state.
+    * 5. check if crycare_verify_packet(pkt) since the 1 workflow only or not and doesn't mean crycare_verify have run
+    * 6. if state is IDLE | PRE_ALERT -> hits++ and change state into PRE_ALERT
+    * 7. if not crycare_verify_packet -> hits = 0 and duty = 0 and state - IDLE. Otherwise, back to 6
+    * 8. if hits >= K: if escalate_time == 0 -> then state = ESCALATED and duty = 100. Otherwise: state = soft and alert_start_time = now_Sec
+    * 9. if now_sec - alert_start >= escalated_time -> state = ESCALATED and duty = 100.
+    * 10. Only pkt->event_type = ACK_MOM do we change into COOLDOWN and duty = 0; even noise cannot change
+    * 11. return status_OK (since we use pointer not local variables) */
 ) {
     if (fsm == NULL || pkt == NULL || !crycare_verify_packet(pkt) || pkt->event_type != 1 && pkt->event_type !=2 && pkt->event_type != 3) return FSM_STEP_INVALID;
     
     // duplicate check
-    else if(fsm->has_seen_packet && pkt->seq_id <= fsm->last_seq_id) return FSM_STEP_DUPLICATE;
+    if(fsm->has_seen_packet && pkt->seq_id <= fsm->last_seq_id) return FSM_STEP_DUPLICATE;
     fsm->last_seq_id = pkt->seq_id;
     fsm->has_seen_packet = true;
     if(fsm->state == FSM_STATE_COOLDOWN && now_sec >= fsm->cooldown_until_sec){
-        fsm->duty_cycle = 0;
-        fsm->consecutive_hits = 0;
-        fsm->state = FSM_STATE_IDLE;
+        fsm->duty_cycle = 0; // buzzer volume
+        fsm->consecutive_hits = 0; // số cry_alert liên tiếp
+        fsm->state = FSM_STATE_IDLE; // sẵn sàng
     }
     
-    else if (pkt->event_type == CRYCARE_EVENT_ACK_MOM){
+    if (pkt->event_type == CRYCARE_EVENT_ACK_MOM){ // ans: ta dùng if vì event cần xử lý độc lập và không phụ thuộc if trước đó (do đó dùng if/else-if sẽ bị delay 1 gói)
         fsm->duty_cycle = 0;
         fsm->state = FSM_STATE_COOLDOWN;
-        fsm->cooldown_sec = now_sec;
+        fsm->cooldown_until_sec = now_sec + fsm->cooldown_sec;
+        fsm->consecutive_hits = 0;
     }
-    else if (pkt->event_type == CRYCARE_EVENT_CRY_ALERT){
-        if (fsm->state == FSM_STATE_COOLDOWN){
-            // question: if COOLDOWN, then what is our output when cry_alert occurs?
-        }
-        else if (fsm->state == CRYCARE_EVENT_CRY_ALERT){
-            if (fsm->duty_cycle == 0){
-                fsm->state = FSM_STATE_PRE_ALERT;
-                
-            }
-            else if (fsm->duty_cycle == 50){
-                fsm->state = FSM_STATE_ALERT_SOFT;
-                // question: what i know about duty_cycle is the cry frequence of baby. Then we can't exactly know if it 50 or louder -> why don't we set greater than ?
-                // also: what do you mean by recording alert_start_sec once the streak reached debounce_k and escalate_after_sec ==0?
-                // how can we handle and let theirs value run automatically?
-            
-            }
-        }
-        else{
-            // i don't know what will we do with it though i have read the workflow
+    if (pkt->event_type == CRYCARE_EVENT_CRY_ALERT){
+        if (is_cry_qualified(pkt->dbfs, pkt->conf, pkt->f0_hz))process_cry_packet(fsm, now_sec);
+        else if(!is_cry_qualified(pkt->dbfs, pkt->conf, pkt->f0_hz) && (fsm->state == FSM_STATE_PRE_ALERT || fsm->state == FSM_STATE_IDLE)){
+            fsm->duty_cycle = 0;
+            fsm->consecutive_hits = 0;
+            fsm->state = FSM_STATE_IDLE;
         }
     }
+    if (pkt->event_type == CRYCARE_EVENT_PING){
+        if(fsm->state == FSM_STATE_ALERT_SOFT && now_sec - fsm->alert_start_sec >= fsm->escalate_after_sec){
+            fsm->state = FSM_STATE_ALERT_ESCALATED;
+            fsm->duty_cycle = 100;
+        }
+    }
+    return FSM_STEP_OK;
 }
