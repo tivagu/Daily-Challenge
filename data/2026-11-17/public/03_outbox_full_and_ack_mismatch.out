@@ -1,0 +1,8 @@
+OK
+OK
+FULL
+PUB {"device_id":"s3_01","event":"CRY_ALERT","seq_id":1,"ts":100,"conf":80,"dbfs":-30,"f0_hz":400}
+NONE
+ACK_ERR
+ACK_OK
+1

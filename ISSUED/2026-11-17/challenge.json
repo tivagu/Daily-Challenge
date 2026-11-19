@@ -1,0 +1,23 @@
+{
+  "id": "EDGE-2026-11-17",
+  "date": "2026-11-17",
+  "timezone": "Asia/Saigon",
+  "weekly_block": "2026-11-16: CryCare JSON telemetry serialization & MQTT offline outbox",
+  "module": "C11 JSON telemetry formatter, bounded offline outbox & PUBACK retry state",
+  "depends_on": [
+    "EDGE-2026-11-13",
+    "EDGE-2026-11-15"
+  ],
+  "session_minutes": 90,
+  "profile": "c-reproducible-project",
+  "format": "A",
+  "origin": "self-authored",
+  "language": "C11",
+  "data_dir": "../../data/2026-11-17/public",
+  "learner_files": [
+    "c/CMakeLists.txt",
+    "c/src/mqtt_outbox.c",
+    "REPORT.md"
+  ],
+  "acceptance_tests": "Five public replay cases and two learner cases; verify CMakeLists.txt build, snprintf truncation safety, bounded FIFO outbox, and PUBACK/disconnect retry semantics."
+}

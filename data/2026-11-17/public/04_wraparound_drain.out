@@ -1,0 +1,9 @@
+OK
+PUB {"device_id":"s3_01","event":"CRY_ALERT","seq_id":1,"ts":10,"conf":85,"dbfs":-20,"f0_hz":450}
+ACK_OK
+OK
+OK
+PUB {"device_id":"s3_01","event":"ACK_MOM","seq_id":2,"ts":20,"conf":0,"dbfs":-120,"f0_hz":0}
+ACK_OK
+PUB {"device_id":"s3_01","event":"PING","seq_id":3,"ts":30,"conf":0,"dbfs":-120,"f0_hz":0}
+ACK_OK
