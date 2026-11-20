@@ -1,0 +1,5 @@
+s3_01 4
+ROUTE crycare/s3_01/cmd {"cmd":"PING_REQ","seq_id":1}
+ROUTE crycare/s3_01/telemetry {"cmd":"PING_REQ","seq_id":2}
+ROUTE crycare/s3_01/cmd/extra {"cmd":"PING_REQ","seq_id":3}
+ROUTE other/s3_01/cmd {"cmd":"PING_REQ","seq_id":4}

@@ -1,0 +1,22 @@
+{
+  "id": "EDGE-2026-11-19",
+  "date": "2026-11-19",
+  "timezone": "Asia/Saigon",
+  "weekly_block": "2026-11-16: CryCare Cloud Telemetry & Bidirectional MQTT",
+  "module": "C11 MQTT topic builder, LWT config, topic router & JSON command parser",
+  "depends_on": [
+    "EDGE-2026-11-17"
+  ],
+  "session_minutes": 90,
+  "profile": "c-reproducible-project",
+  "format": "A",
+  "origin": "self-authored",
+  "language": "C11",
+  "data_dir": "../../data/2026-11-19/public",
+  "learner_files": [
+    "c/CMakeLists.txt",
+    "c/src/mqtt_router.c",
+    "REPORT.md"
+  ],
+  "acceptance_tests": "Five public replay cases and two learner cases; verify CMakeLists.txt build, topic formatting/matching, LWT defaults, and JSON command parsing."
+}

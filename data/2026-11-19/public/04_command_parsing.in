@@ -1,0 +1,6 @@
+s3_01 5
+ROUTE crycare/s3_01/cmd {"cmd":"SET_THRESHOLD","seq_id":10,"value":-45}
+ROUTE crycare/s3_01/cmd {"seq_id":11,"value":-120,"cmd":"SET_THRESHOLD"}
+ROUTE crycare/s3_01/cmd {"cmd":"SET_THRESHOLD","seq_id":12,"value":0}
+ROUTE crycare/s3_01/cmd {"cmd":"PING_REQ","seq_id":13}
+ROUTE crycare/s3_01/cmd {"cmd":"ACK_MOM","seq_id":14}

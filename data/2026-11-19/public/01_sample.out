@@ -1,0 +1,4 @@
+TOPIC crycare/s3_01/telemetry
+LWT crycare/s3_01/status qos=1 retain=1 {"status":"offline"}
+CMD ACK_MOM seq=42 val=0
+IGNORE_TOPIC

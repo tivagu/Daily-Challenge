@@ -1,0 +1,6 @@
+s3_01 5
+ROUTE crycare/s3_01/cmd {"cmd":"REBOOT","seq_id":20}
+ROUTE crycare/s3_01/cmd {"cmd":"ACK_MOM"}
+ROUTE crycare/s3_01/cmd {"cmd":"SET_THRESHOLD","seq_id":21}
+ROUTE crycare/s3_01/cmd {"cmd":"SET_THRESHOLD","seq_id":22,"value":-121}
+ROUTE crycare/s3_01/cmd {"cmd":"SET_THRESHOLD","seq_id":23,"value":10}

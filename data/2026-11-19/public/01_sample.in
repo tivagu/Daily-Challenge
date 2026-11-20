@@ -1,0 +1,5 @@
+s3_01 4
+BUILD_TOPIC s3_01 telemetry 64
+BUILD_LWT s3_01
+ROUTE crycare/s3_01/cmd {"cmd":"ACK_MOM","seq_id":42}
+ROUTE crycare/s3_02/cmd {"cmd":"ACK_MOM","seq_id":43}

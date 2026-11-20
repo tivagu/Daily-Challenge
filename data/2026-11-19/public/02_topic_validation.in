@@ -1,0 +1,6 @@
+s3_01 5
+BUILD_TOPIC s3_01 telemetry 24
+BUILD_TOPIC s3_01 telemetry 23
+BUILD_TOPIC s3/01 telemetry 64
+BUILD_TOPIC s3_01 bad/chan 64
+BUILD_LWT s3/01
